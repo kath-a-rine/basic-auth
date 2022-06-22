@@ -14,7 +14,7 @@ afterAll (async () => {
 });
 
 describe('Auth Tests', () => {
-  test('POST - sign up to create a new user', async () => {
+  it('POST - sign up to create a new user', async () => {
     let response = await (await mockRequest.post('/signup')).setEncoding({
       username: 'test',
       password: 'blink182',
@@ -26,7 +26,12 @@ describe('Auth Tests', () => {
     expect(response.body.password).not.toEqual('blink182');
   });
 
-  test('POST - sign in to login as an existing user', async () => {
+  it('POST - sign in to login as an existing user', async () => {
+    let authString = 'test:blink182';
+    let encodedString = base64.encode(authString);
+    let response = await mockRequest.post('/signin').set('Authorization', `Basic ${encodedString}`);
 
+    expect(response.status).toEqual(200);
+    expect(response.body.username).toEqual('test');
   });
 });

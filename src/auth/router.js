@@ -1,15 +1,14 @@
 'use strict';
 
 const express = require('express');
-const router = express.Router;
+const router = express.Router();
 const bcrypt = require('bcrypt');
 
-const { UsersModel } = require('./models');
-const { basicAuth } = require('./middleware/basic');
+const { UsersModel } = require('./models/index.js');
+const basicAuth = require('./middleware/basic');
 
 // Signup Route -- create a new user
 router.post('/signup', async (req, res) => {
-
   try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     const record = await UsersModel.create(req.body);
@@ -18,10 +17,8 @@ router.post('/signup', async (req, res) => {
 });
 
 // Signin Route -- login with username and password
-router.post('/signin', basicAuth, async (req, res) => {
-
+router.post('/signin', basicAuth, (req, res) => {
   res.status(200).json(req.user);
-
 });
 
 module.exports = router;

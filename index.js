@@ -8,8 +8,8 @@ const { start } = require('./src/server');
 sequelize.sync()
   .then(() => {
     console.log('server up and connected');
+    start();
   }).catch(e => {
     console.error('Could not start server', e.message);
   });
 
-start();

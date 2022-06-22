@@ -8,7 +8,7 @@ Authentication System Phase 1: Deploy an Express server that implements Basic Au
 
 ### Links and Resources
 
-- [ci/cd - GitHub Actions]
+- [ci/cd - GitHub Actions](https://github.com/kath-a-rine/bearer-auth/actions)
 - [back-end server url]
 
 
