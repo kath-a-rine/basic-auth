@@ -1,6 +1,7 @@
 'use strict';
 
-const { server, sequelize } = require('../src/server');
+const { server } = require('../src/server');
+const { sequelize } = require('../src/auth/models/index');
 const base64 = require('base-64');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
@@ -15,12 +16,12 @@ afterAll (async () => {
 
 describe('Auth Tests', () => {
   it('POST - sign up to create a new user', async () => {
-    let response = await (await mockRequest.post('/signup')).setEncoding({
+    let response = await mockRequest.post('/signup').send({
       username: 'test',
       password: 'blink182',
     });
     console.log('Response Body', response.body);
-    expect(response.status).toEqual(200);
+    expect(response.status).toEqual(201);
     expect(response.body.username).toEqual('test');
     expect(response.body.password).toBeTruthy();
     expect(response.body.password).not.toEqual('blink182');

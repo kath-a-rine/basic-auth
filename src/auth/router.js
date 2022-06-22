@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Signin Route -- login with username and password
-router.post('/signin', basicAuth, (req, res) => {
+router.post('/signin', basicAuth, async (req, res) => {
   res.status(200).json(req.user);
 });
 
